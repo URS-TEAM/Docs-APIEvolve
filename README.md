@@ -43,8 +43,8 @@ The JSON is sent as an array of objects, where each object represents a product 
  "WebPrice": 2,
  "WebManageStock": false,
  "WebStockStatus": 1,
- "WebStockQuantity": 0.
- "WebPromoPrice": 0.
+ "WebStockQuantity": 0,
+ "WebPromoPrice": 0,
  "PromoStartDate": null,
  "PromoEndDate": null,
  "WebStatus": 0
