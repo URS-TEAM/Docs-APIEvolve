@@ -5,7 +5,7 @@
 
 The EvolvePos API allows the upload of products to WooCommerce using a JSON format. The structure of an example request for uploading products is described below.
 
-## JSON Structure
+### JSON Structure
 
 The JSON is sent as an array of objects, where each object represents a product to be uploaded to WooCommerce.
 
@@ -28,7 +28,7 @@ The JSON is sent as an array of objects, where each object represents a product 
 | `PromoEndDate` | `string` | Promotion end date (if applicable). In YYYY-MM-DD format or null if there is no promotion. | null |
 | `WebStatus` | `int` | Product status. Possible values: 1 (active), 0 (inactive). | 0 |
 
-## JSON example
+### JSON example
 
 ```json
 [
@@ -70,16 +70,18 @@ The JSON is sent as an array of objects, where each object represents a product 
 
 ```
 
-## Additional Notes:
+### Additional Notes:
 
 - **Stock and Promotions:** If the product has manually managed stock, make sure `WebManageStock` is set to `false`. If a promotional price is offered, you can include the start and end dates for the promotion.
 - **Product Status:** The `WebStatus` field defines whether or not the product is active in the store. A value of `1` indicates that the product is active, while `0` disables it.
+
+---
 
 ## Image Upload Documentation
 
 The EvolvePos API allows you to associate images with WooCommerce products using the product SKU. To do so, you send a JSON containing the list of images and their respective positions.
 
-## JSON Structure
+### JSON Structure
 
 The JSON contains a main object with the `images` field, which is an array of objects. Each object within this array represents an image that will be associated with the product.
 
@@ -91,13 +93,13 @@ The JSON contains a main object with the `images` field, which is an array of ob
 | `path` | `string` | Path to the image file. The path must be accessible from the server where WooCommerce is running. | `\\\\192.168.5.10\\red-images\\1.png`|
 | `index` | `int` | Image index. Defines the image order for the product. Index 0 is the main image. | `0`,`1`,`2`|
 
-## Detailed Description:
+### Detailed Description:
 
 - **`images`:** This is the main field, which contains an array of objects. Each object within images is an image that will be associated with the product. The array can contain multiple images for a single product.
 - **`path`:** The full path where the image is located. This must be a valid path on the server. In the example, shared network paths are used (\192.168.5.10...), but you can have local paths or absolute URLs depending on how you manage your images on the server.
 - **`index`:** This is the index of the image within the product. Index 0 is considered the main image of the product (the one that will appear as the main one in the store). Subsequent indexes (1, 2, etc.) define the order of the secondary images.
 
-## JSON Example
+### JSON Example
 
 ```json
 {
@@ -119,12 +121,278 @@ The JSON contains a main object with the `images` field, which is an array of ob
 
 ```
 
-## API Usage
+### API Usage
 
 This JSON is sent to the WooCommerce API to associate the images with the corresponding product. The product SKU will be used to look up the product and then associate the images with that product. The images will be loaded from the path provided in the `path` field.
 
-## Additional Notes:
+### Additional Notes:
 
 - **Image Path Format:** Make sure your image paths are correct and accessible by the server where your WooCommerce store is hosted. If you use network paths, make sure they are accessible from the production server.
 - **Image Order:** The image index is very important. The product can have multiple images, but the image with `index: 0` will be the primary one, which is the one usually displayed in the product preview in the store.
 - **External Images:** If your images are hosted on an external server, make sure the path is a publicly accessible URL.
+
+---
+## Documentation: WooCommerce Order JSON Structure
+
+This document describes the structure of a JSON object representing an order in WooCommerce.
+
+### General Structure
+
+The JSON contains an array called `orders`, where each object represents an order with details about billing, shipping, products, taxes, and payment method.
+
+```json
+{
+  "orders": [
+    {
+      "id": 5023,
+      "status": "completed",
+      "currency": "USD",
+      "date_created": "2025-03-05T14:32:21",
+      "date_modified": "2025-03-05T14:40:18",
+      "discount_total": 10.00,
+      "discount_tax": 0.30,
+      "shipping_total": 7.50,
+      "shipping_tax": 0.45,
+      "total": 75.50,
+      "total_tax": 3.25,
+      "billing": {
+        "first_name": "Sophia",
+        "last_name": "Williams",
+        "company": "EvolvePOS",
+        "address_1": "1234 Sunset Blvd",
+        "address_2": "Apt 7C",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postcode": "90026",
+        "country": "US",
+        "email": "sophia.williams@evolvepos.com",
+        "phone": "2139876543"
+      },
+      "web_shipping": {
+        "first_name": "Sophia",
+        "last_name": "Williams",
+        "company": "EvolvePOS",
+        "address_1": "1234 Sunset Blvd",
+        "address_2": "Apt 7C",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postcode": "90026",
+        "country": "US",
+        "phone": "2139876543"
+      },
+      "payment_method": "credit_card",
+      "payment_method_title": "Credit Card",
+      "transaction_id": "TX9876543210",
+      "customer_note": "Please deliver between 10am - 2pm.",
+      "date_completed": "2025-03-05T14:40:18",
+      "date_paid": "2025-03-05T14:35:25",
+      "line_items": [
+        {
+          "sku": "014738920",
+          "name": "EvolvePOS Tablet",
+          "quantity": 1,
+          "subtotal": 49.99,
+          "subtotal_tax": 2.50,
+          "total": 49.99,
+          "total_tax": 2.50,
+          "price": 49.99
+        },
+        {
+          "sku": "021547671",
+          "name": "POS Stand for Tablet",
+          "quantity": 2,
+          "subtotal": 15.98,
+          "subtotal_tax": 0.80,
+          "total": 15.98,
+          "total_tax": 0.80,
+          "price": 7.99
+        }
+      ],
+      "tax_lines": [
+        {
+          "rate_code": "TAX-1",
+          "rate_id": 1,
+          "label": "Sales Tax",
+          "compound": false,
+          "tax_total": 3.25,
+          "shipping_tax_total": 0.45,
+          "rate_percent": 7.25
+        }
+      ],
+      "shipping_lines": [
+        {
+          "method_title": "Standard Shipping",
+          "method_id": "standard_shipping",
+          "total": 7.50,
+          "total_tax": 0.45
+        }
+      ],
+      "fee_lines": [],
+      "coupon_lines": [],
+      "refunds": []
+    }
+  ]
+}
+```
+
+---
+
+### Main Order Fields
+
+- **`id`** (`int`): Unique identifier for the order.  
+- **`status`** (`string`): Current status of the order (e.g., `"completed"`).  
+- **`currency`** (`string`): Currency used for the order (e.g., `"USD"`).  
+- **`date_created`** (`string`): Date and time when the order was created (ISO 8601 format).  
+- **`date_modified`** (`string`): Date and time when the order was last modified.  
+- **`discount_total`** (`float`): Total amount of discounts applied to the order.  
+- **`discount_tax`** (`float`): Tax amount applied to the discount.  
+- **`shipping_total`** (`float`): Total shipping cost.  
+- **`shipping_tax`** (`float`): Tax amount applied to the shipping cost.  
+- **`total`** (`float`): Final total amount for the order.  
+- **`total_tax`** (`float`): Total tax amount applied to the order.  
+
+---
+
+### Billing Information (`billing`)
+
+Customer’s billing details:
+
+- **`first_name`** (`string`): Customer's first name.  
+- **`last_name`** (`string`): Customer's last name.  
+- **`company`** (`string`): Company name (if applicable).  
+- **`address_1`** (`string`): Primary address line.  
+- **`address_2`** (`string`): Secondary address line (optional).  
+- **`city`** (`string`): City of residence.  
+- **`state`** (`string`): State or province.  
+- **`postcode`** (`string`): Postal or ZIP code.  
+- **`country`** (`string`): Country code (ISO 3166-1 alpha-2 format).  
+- **`email`** (`string`): Customer’s email address.  
+- **`phone`** (`string`): Customer’s phone number.  
+
+---
+
+### Shipping Information (`web_shipping`)
+
+Shipping address for the order, containing the same fields as `billing`.
+
+---
+
+### Payment Information
+
+- **`payment_method`** (`string`): Payment method used (`"credit_card"`, `"paypal"`, etc.).  
+- **`payment_method_title`** (`string`): Display name of the payment method.  
+- **`transaction_id`** (`string`): Unique identifier for the payment transaction.  
+- **`date_paid`** (`string`): Date and time when the payment was completed.  
+- **`date_completed`** (`string`): Date and time when the order was marked as completed.  
+- **`customer_note`** (`string`): Optional note from the customer.  
+
+---
+
+### Ordered Products (`line_items`)
+
+List of purchased products, each with the following fields:
+
+- **`sku`** (`string`): Product’s unique stock-keeping unit (SKU).  
+- **`name`** (`string`): Product name.  
+- **`quantity`** (`int`): Quantity purchased.  
+- **`subtotal`** (`float`): Price before taxes for the given quantity.  
+- **`subtotal_tax`** (`float`): Tax amount applied to the subtotal.  
+- **`total`** (`float`): Final price after discounts or adjustments.  
+- **`total_tax`** (`float`): Total tax amount for the product.  
+- **`price`** (`float`): Unit price of the product.  
+
+**Example:**  
+```json
+{
+  "sku": "014738920",
+  "name": "EvolvePOS Tablet",
+  "quantity": 1,
+  "subtotal": 49.99,
+  "subtotal_tax": 2.50,
+  "total": 49.99,
+  "total_tax": 2.50,
+  "price": 49.99
+}
+```
+### Tax Information (`tax_lines`)
+
+List of taxes applied to the order:
+
+- **`rate_code`** (`string`): Tax rate code.  
+- **`rate_id`** (`int`): Tax rate identifier.  
+- **`label`** (`string`): Tax name (e.g., `"Sales Tax"`).  
+- **`compound`** (`bool`): Indicates whether the tax is compounded.  
+- **`tax_total`** (`float`): Total tax amount for the products. 
+- **`shipping_tax_total`** (`float`): Tax amount applied to shipping. 
+- **`rate_percent`** (`float`): Percentage of the tax rate.
+
+**Example:**  
+```json
+{
+  "rate_code": "TAX-1",
+  "rate_id": 1,
+  "label": "Sales Tax",
+  "compound": false,
+  "tax_total": 3.25,
+  "shipping_tax_total": 0.45,
+  "rate_percent": 7.25
+}
+```
+### Shipping Methods (`shipping_lines`)
+
+List of shipping methods used:
+
+- **`method_title`** (`string`): Name of the shipping method (e.g., `"Standard Shipping"`). 
+- **`method_id`** (`string`): Identifier of the shipping method.  
+- **`total`** (`float`): Total shipping cost. 
+- **`total_tax`** (`float`): Tax amount applied to the shipping cost.
+
+**Example:**  
+```json
+{
+  "method_title": "Standard Shipping",
+  "method_id": "standard_shipping",
+  "total": 7.50,
+  "total_tax": 0.45
+}
+```
+### Additional Fields
+
+- **`fee_lines`** (`array`): List of additional fees applied to the order (empty in this case).
+- **`coupon_lines`** (`array`): List of discount coupons used (empty in this case).
+- **`refunds`** (`array`): List of processed refunds (empty in this case).
+
+### Complete Example
+
+```json
+{
+  "orders": [
+    {
+      "id": 5023,
+      "status": "completed",
+      "currency": "USD",
+      "date_created": "2025-03-05T14:32:21",
+      "total": 75.50,
+      "billing": {
+        "first_name": "Sophia",
+        "last_name": "Williams",
+        "email": "sophia.williams@evolvepos.com"
+      },
+      "line_items": [
+        {
+          "sku": "014738920",
+          "name": "EvolvePOS Tablet",
+          "quantity": 1,
+          "total": 49.99
+        }
+      ],
+      "shipping_lines": [
+        {
+          "method_title": "Standard Shipping",
+          "total": 7.50
+        }
+      ]
+    }
+  ]
+}
+```
