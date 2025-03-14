@@ -16,9 +16,11 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 
 ### Common Authentication Errors:
 
-- **401 Unauthorized:**  Missing or invalid token.  
-- **403 Forbidden:** Token provided, but lacks permission to access the resource.  
-
+An unexpected error occurred.
+| Status | Description              |
+|--------|-------------------------|
+| `401`  | Missing or invalid token. |
+| `403`  | Token provided, but lacks permission to access the resource.  |
 ---
 
 ## Documentation for Uploading Items to WooCommerce
@@ -31,10 +33,11 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 **Description:** Retrieves all products from WooCommerce.  
 **Authentication:** Bearer Token (required) 
 
-### Possible Responses
-
-- **200 OK:** Product status updated successfully.  
-- **500 Internal Server Error:** An unexpected error occurred. 
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product status updated successfully. |
+| `500`  | An unexpected error occurred.  |
 ---
 ### Get Product by SKU
 **Endpoint:** `GET /woocommerce/products/{sku}`  
@@ -45,11 +48,12 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 
 - `sku` (string): The SKU of the product to retrieve.
 
-### Possible Responses
-
-- **200 OK:**  Product retrieved successfully.
-- **404 Not Found**  Product with the specified SKU was not found. 
-- **500 Internal Server Error:** An unexpected error occurred.  
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product retrieved successfully. |
+| `404`  | Product with the specified SKU was not found.  |
+| `500`  | An unexpected error occurred.  |
 
 ---
 ### Create or Update Product by SKU
@@ -61,12 +65,12 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 
 - `sku` (string): The SKU of the product to update or create.
 
-### Possible Responses
-
-- **200 OK:**  Product retrieved successfully.
-- **404 Not Found**  Product with the specified SKU was not found. 
-- **500 Internal Server Error:** An unexpected error occurred.  
-
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product retrieved successfully. |
+| `404`  | Product with the specified SKU was not found.  |
+| `500`  | An unexpected error occurred.  |
 ---
 ### Update Product Status
 **Endpoint:** `PUT /woocommerce/products/{sku}/status`  
@@ -81,10 +85,11 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 
 - `is_published` (bolean): `true` to publish the product, `false` to set it as a draft.
 
-### Possible Responses
-
-- **200 OK:**  Product status update successfully.
-- **500 Internal Server Error:** An unexpected error occurred.
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product status update successfully. |
+| `500`  | An unexpected error occurred.  |
 
 The structure of an example request for uploading products is described below.
 
