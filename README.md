@@ -305,7 +305,70 @@ This JSON is sent to the WooCommerce API to associate the images with the corres
 ---
 ## Documentation: WooCommerce Order JSON Structure
 
-This document describes the structure of a JSON object representing an order in WooCommerce.
+These endpoints handle the interaction between the API and WooCommerce orders.
+
+### Fetch All Orders  
+**Endpoint:** `GET /woocommerce/orders`  
+**Description:** Fetches all WooCommerce orders with an optional status filter.
+**Authentication:** Bearer Token (required)
+
+**Query Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `status`     | string | ❌       | Filter orders by status (optional). Example: `completed`, `processing`, `cancelled`, `on-hold`, `pending`,`failed`, `trash`.|
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product status updated successfully. |
+| `500`  | An unexpected error occurred.    |
+
+---
+### Fetch Order by ID
+**Endpoint:** `GET /woocommerce/orders/{order_id}`  
+**Description:** Fetches a specific WooCommerce order by its ID with an optional status filter.
+**Authentication:** Bearer Token (required)
+
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `order_id`     | int | ✅      | FiID of the order to fetch.|
+
+**Query Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `status`     | string | ❌       | Filter orders by status (optional). Example: `completed`, `processing`, `cancelled`, `on-hold`, `pending`,`failed`, `trash`.|
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product status updated successfully. |
+| `404`  | Order not found. |
+| `500`  | An unexpected error occurred.    |
+---
+
+### Update Order Status
+**Endpoint:** `PUT /woocommerce/orders/{order_id}/status`  
+**Description:** Updates the status of a WooCommerce order.
+**Authentication:** Bearer Token (required)
+
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `order_id`     | int | ✅      | FiID of the order to fetch.|
+
+**Query Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `status`     | string | ✅      | FNew order status. Example: `completed`, `processing`, `cancelled`, `on-hold`, `pending`,`failed`, `trash`.|
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Order status updated successfully. |
+| `500`  | An unexpected error occurred.    |
+---
+
 
 ### General Structure
 
