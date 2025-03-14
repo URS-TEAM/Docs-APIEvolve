@@ -1,6 +1,10 @@
 ![Logo](https://evolvepos.com/wp-content/uploads/2024/08/EvolveLogo.png)
 # EvolvePos API
 
+The EvolvePOS API was developed to seamlessly integrate **EvolvePOS** with **WooCommerce**, enabling centralized management of key retail operations. Through this integration, users can manage Departments (Categories), Categories (Subcategories), Products, Images, and Orders directly from the EvolvePOS system.
+
+This API runs locally and is designed to be installed on the client’s server as a **Windows service**. This setup ensures that the API remains accessible even when no user is logged into the Windows environment, providing uninterrupted functionality and reliability.
+
 ## Documentation for Uploading Items to WooCommerce
 
 The EvolvePos API allows the upload of products to WooCommerce using a JSON format. The structure of an example request for uploading products is described below.
