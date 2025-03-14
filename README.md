@@ -44,9 +44,10 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 **Description:** Retrieves a specific product from WooCommerce by its SKU. 
 **Authentication:** Bearer Token (required) 
 
-**Path Parameter:**
-
-- `sku` (string): The SKU of the product to retrieve.
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `sku`     | string | ✅        | Product SKU.       |
 
 **Responses:**
 | Status | Description              |
@@ -61,9 +62,10 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 **Description:** Updates an existing product by SKU, or creates it if it doesn’t exist. 
 **Authentication:** Bearer Token (required) 
 
-**Path Parameter:**
-
-- `sku` (string): The SKU of the product to update or create.
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `sku`     | string | ✅        | Product SKU.       |
 
 **Responses:**
 | Status | Description              |
@@ -77,13 +79,15 @@ The EvolvePos API allows the upload of products to WooCommerce using a JSON form
 **Description:** Updates the publication status of a product (either`publish` or `draft`).
 **Authentication:** Bearer Token (required) 
 
-**Path Parameter:**
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `sku`     | string | ✅        | Product SKU.       |
 
-- `sku` (string): The SKU of the product to update
-
-**Query Parameter:**
-
-- `is_published` (bolean): `true` to publish the product, `false` to set it as a draft.
+**Query Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `is_published`     | bolean | ✅       | `true` to publish the product, `false` to set it as a draft.      |
 
 **Responses:**
 | Status | Description              |
