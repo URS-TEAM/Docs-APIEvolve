@@ -23,12 +23,13 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 
 ## Documentation for Uploading Items to WooCommerce
 
-The following endpoints allow interaction with WooCommerce products, enabling retrieval, creation, updates, and status management based on SKU.
+The EvolvePos API allows the upload of products to WooCommerce using a JSON format. The following endpoints allow interaction with WooCommerce products, enabling retrieval, creation, updates, and status management based on SKU.
 
 
 ### Get All Products  
 **Endpoint:** `GET /woocommerce/products`  
 **Description:** Retrieves all products from WooCommerce.  
+**Authentication:** Bearer Token (required) 
 
 ### Possible Responses
 
@@ -38,6 +39,7 @@ The following endpoints allow interaction with WooCommerce products, enabling re
 ### Get Product by SKU
 **Endpoint:** `GET /woocommerce/products/{sku}`  
 **Description:** Retrieves a specific product from WooCommerce by its SKU. 
+**Authentication:** Bearer Token (required) 
 
 **Path Parameter:**
 
@@ -53,6 +55,7 @@ The following endpoints allow interaction with WooCommerce products, enabling re
 ### Create or Update Product by SKU
 **Endpoint:** `PUT /woocommerce/products/{sku}`  
 **Description:** Updates an existing product by SKU, or creates it if it doesn’t exist. 
+**Authentication:** Bearer Token (required) 
 
 **Path Parameter:**
 
@@ -68,6 +71,7 @@ The following endpoints allow interaction with WooCommerce products, enabling re
 ### Update Product Status
 **Endpoint:** `PUT /woocommerce/products/{sku}/status`  
 **Description:** Updates the publication status of a product (either`publish` or `draft`).
+**Authentication:** Bearer Token (required) 
 
 **Path Parameter:**
 
@@ -82,7 +86,7 @@ The following endpoints allow interaction with WooCommerce products, enabling re
 - **200 OK:**  Product status update successfully.
 - **500 Internal Server Error:** An unexpected error occurred.
 
-The EvolvePos API allows the upload of products to WooCommerce using a JSON format. The structure of an example request for uploading products is described below.
+The structure of an example request for uploading products is described below.
 
 ### JSON Structure
 
@@ -158,7 +162,86 @@ The JSON is sent as an array of objects, where each object represents a product 
 
 ## Image Upload Documentation
 
-The EvolvePos API allows you to associate images with WooCommerce products using the product SKU. To do so, you send a JSON containing the list of images and their respective positions.
+The EvolvePos API allows you to associate images with WooCommerce products using the product SKU. These endpoints handle product images and their synchronization with WooCommerce.
+
+
+###  **Get Product Images by SKU**
+**Endpoint:** `GET /product-images/{sku}`  
+**Description:** Fetches the product's SKU, name, and associated images from WooCommerce.  
+**Authentication:** Bearer Token (required)  
+
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `sku`     | string | ✅        | Product SKU.       |
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Product and images found. |
+| `404`  | Product not found.        |
+| `500`  | Internal server error.    |
+
+**Response Example:**
+```json
+{
+    "sku": "12345",
+    "name": "Soft and Tasty Taco",
+    "images": [
+        "https://yourstore.com/wp-content/uploads/2025/01/taco1.jpg",
+        "https://yourstore.com/wp-content/uploads/2025/01/taco2.jpg"
+    ]
+}
+```
+---
+###  **Upload All Images from Location Folder**
+**Endpoint:** `POST /upload-images`  
+**Description:** Uploads all images from the configured `LocationFolder` directories in the database to WordPress. 
+**Authentication:** Bearer Token (required)  
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | All images uploaded successfully. |
+| `500`  | Internal server error.    |
+
+**Response Example:**
+```json
+{
+    "status": "success",
+    "message": "All images have been uploaded successfully."
+}
+```
+---
+###  **Sync Gallery Images to Product by SKU**
+**Endpoint:** `POST /sync-gallery-images/{sku}`  
+**Description:** Syncs a list of images to a product’s gallery by SKU, with an option to replace images at specific indices.
+**Authentication:** Bearer Token (required)  
+
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `sku`     | string | ✅        | Product SKU.       |
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | Images synced successfully. |
+| `500`  | Internal server error.    |
+
+**Response Example:**
+```json
+{
+    "status": "success",
+    "uploaded_images": [
+        "https://yourstore.com/wp-content/uploads/2025/01/taco1.jpg",
+        "https://yourstore.com/wp-content/uploads/2025/01/taco2.jpg"
+    ]
+}
+```
+
+
+To do so, you send a JSON containing the list of images and their respective positions.
 
 ### JSON Structure
 
