@@ -630,3 +630,74 @@ List of shipping methods used:
   ]
 }
 ```
+
+---
+### Fetch Order Notes
+**Endpoint:** `GET /woocommerce/orders/{order_id}/notes`  
+**Description:** Fetches all notes for a specific WooCommerce order.
+**Authentication:** Bearer Token (required)
+
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `order_id`     | int | ✅      | ID of the order. |
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | List of order notes. |
+| `500`  | An unexpected error occurred.    |
+
+**Example Response:**
+```json
+{
+    "notes": [
+        {
+            "id": 1,
+            "author": "Admin",
+            "date_created": "2025-03-10T12:00:00Z",
+            "note": "Order shipped.",
+            "customer_note": false
+        },
+        {
+            "id": 2,
+            "author": "Customer",
+            "date_created": "2025-03-11T14:30:00Z",
+            "note": "Please deliver after 5 PM.",
+            "customer_note": true
+        }
+    ]
+}
+```
+---
+### Add Order Note
+**Endpoint:** `POST /woocommerce/orders/{order_id}/notes`  
+**Description:** Adds a note to a WooCommerce order.
+**Authentication:** Bearer Token (required)
+
+**Path Parameters:**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `order_id`     | int | ✅      | ID of the order. |
+
+**Request Body**
+| Parameter | Type   | Required | Description       |
+|-----------|--------|----------|-------------------|
+| `note`     | string | ✅      | The content of the note. |
+| `visible`     | boolean | ❌     | Whether the note is visible to the customer (default: `true`). |
+
+**Responses:**
+| Status | Description              |
+|--------|-------------------------|
+| `200`  | 	Note added successfully. |
+| `500`  | An unexpected error occurred.    |
+
+**Example Request:**
+```json
+{
+    "note": "Your order is ready for pickup.",
+    "visible": true
+}
+```
+
+These endpoints are designed to help keep your order data synchronized and up-to-date across platforms.
